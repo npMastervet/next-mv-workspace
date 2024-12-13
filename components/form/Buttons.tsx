@@ -1,29 +1,61 @@
 'use client'
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { RotateCw } from 'lucide-react';
+import { HeartHandshake, RotateCw } from 'lucide-react';
+import { SignInButton } from "@clerk/nextjs";
+import { Loader } from 'lucide-react';
 
-type btnSize = 'defaut' | 'lg' | 'sm'
+type btnSize = 'default' | 'lg' | 'sm'
 type SubmitButtonProps = {
-    className?: string
-    size?: btnSize
-    text: string
+    className?: string;
+    size?: btnSize;
+    text: string;
 }
 
 export const SubmitButton = ({ className, size, text }: SubmitButtonProps) => {
+    // code
+    const { pending } = useFormStatus();
+    return (
+      <Button
+        disabled={pending}
+        type="submit"
+        size={size}
+        className={`${className} capitalize`}
+      >
+        {pending ? (
+          <>
+            <RotateCw className="animate-spin" />
+            <span>Please wait...</span>
+          </>
+        ) : (
+          <p>{text}</p>
+        )}
+      </Button>
+    );
+  };
+
+export const SignInCardButton = () => {
+    return (
+        <SignInButton mode="modal">
+            <Button size='icon' variant='outline'>
+                <HeartHandshake />
+            </Button>
+        </SignInButton>
+    )
+}
+
+export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
+    // console.log('is',isFavorite)
     const { pending } = useFormStatus()
     return (
-        <Button
-            disabled={pending}
-            type="submit"
-            size={size}
-            className={'${className} capitalize'} >
+        <Button type="submit" size='icon' variant='outline'>
             {
                 pending
-                    ? <RotateCw className="animate-spin" />
-                    : <p>{text}</p>
+                ? <Loader className="animate-spin"/>
+                : isFavorite
+                ? <HeartHandshake fill="blue"/>
+                : <HeartHandshake />
             }
-
-        </Button>
+            </Button>
     )
 }
