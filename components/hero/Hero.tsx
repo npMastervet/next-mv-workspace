@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import OtherInfo from './OtherInfo';
 
 export const Hero = ({ landmarks }: { landmarks: LandmarkCardProps[] }) => {
     return (
@@ -38,7 +39,8 @@ export const Hero = ({ landmarks }: { landmarks: LandmarkCardProps[] }) => {
                     className="col-span-4 mb-4 flex h-full flex-1
                   justify-end px-5 md:mb-4 md:justify-end md:px-10
                   "
-                  >                    
+                  >
+                    <OtherInfo landmark={landmark}/>
                   </div>
                 </div>
               </div>

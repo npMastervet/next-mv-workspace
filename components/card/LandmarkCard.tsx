@@ -3,11 +3,13 @@ import Image from 'next/image'
 import { LandmarkCardProps } from '@/utils/types'
 import LandmarkRating from './LandmarkRating'
 import FavoriteToggleButton from './FavoriteToggleButton'
+import Link from 'next/link'
 
 const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
     const { name, image, description, price, id, province, lat, lng, category } = landmark
     return (
         <article className='group relative'>
+            <Link href={`/landmark/${id}`}>
             <div className='relative h-[300px] rounded-md mb-2'>
                 <Image src={image} sizes='(max-width:768px 100vw, 50vw)' alt={name} fill className='object-cover rounded-md group-hover:scale-105 transition-transform duration-300' />
             </div>
@@ -19,7 +21,8 @@ const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
             <div className='mt-1 flex item-center justify-between font-semibold text-sm'>
                 <span>THB {price}</span>
                 <p>{province}</p>
-            </div>
+            </div>           
+            </Link>
             <div className='absolute top-5 right-5'>
                 <FavoriteToggleButton landmarkId={id}/>
             </div>
